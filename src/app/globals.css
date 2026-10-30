@@ -1,26 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-blue: #1e3a8a;
+  --color-blue-secondary: #1e40af;
+  --color-blue-light: #3b82f6;
+  --color-blue-lighter: #60a5fa;
+  --color-white: #ffffff;
+  --color-ivory: #f8fafc;
+  --color-slate: #64748b;
+  --color-border: #e2e8f0;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-success-bg: #dcfce7;
+  --color-warning-bg: #fef3c7;
+  --color-error-bg: #fee2e2;
+
+  --font-sans: var(--font-inter);
+    --font-serif: var(--font-playfair);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Dark mode variables */
+.dark {
+  --color-blue: #3b82f6;
+  --color-blue-secondary: #60a5fa;
+  --color-blue-light: #93c5fd;
+  --color-blue-lighter: #bfdbfe;
+  --color-white: #0f172a;
+  --color-ivory: #020617;
+  --color-slate: #94a3b8;
+  --color-border: #334155;
+}
+
+/* ===== Base Styles ===== */
+*,
+*::before,
+*::after {
+  scroll-behavior: smooth;
+}
+
+html {
+  scroll-padding-top: 4rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background, var(--color-white));
+  color: var(--foreground, var(--color-blue));
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+/* ===== Utility Classes ===== */
+.text-fade {
+  mask-image: linear-gradient(to bottom, black 60%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent);
+}
+
+.blue-gradient {
+  background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-blue-light) 100%);
+}
+
+.blue-gradient-soft {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(96, 165, 250, 0.05) 100%);
+}
+
+.hero-overlay {
+  background: linear-gradient(180deg, rgba(30, 58, 138, 0.4) 0%, rgba(30, 58, 138, 0.7) 100%);
+}
+
+.dark .hero-overlay {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.95) 100%);
+}
+
+/* ===== Custom Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-ivory);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-slate);
+}
+
+/* ===== Focus Styles ===== */
+:focus-visible {
+  outline: 2px solid var(--color-blue-light);
+  outline-offset: 2px;
+}
+
+/* ===== Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===== Aspect Ratio Utilities ===== */
+.aspect-16-9 {
+  aspect-ratio: 16 / 9;
+}
+
+/* Dark mode text and background utilities */
+.dark-text {
+  color: var(--color-slate);
+}
+
+.dark .dark-text {
+  color: var(--color-slate);
+}
+
