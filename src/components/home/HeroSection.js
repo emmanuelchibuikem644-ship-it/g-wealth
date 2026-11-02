@@ -10,7 +10,7 @@ import { siteContent } from "@/lib/data/content";
 import { useRouter } from "next/navigation";
 
 const FALLBACK_IMAGE =
-  "https://images.picsum.photos/seed/gw-hero-bg/1920/1080";
+  "engin-akyurt-iw8RG8_lS1I-unsplash.jpg";
 
 export function HeroSection({ featuredProperty }) {
   const router = useRouter();
@@ -134,9 +134,9 @@ export function HeroSection({ featuredProperty }) {
         >
           <Link href="/properties">
             <Button
-              variant="gold"
+              variant="outline"
               size="lg"
-              className="shadow-lg"
+              className="border-white/30 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20 shadow-lg"
             >
               {siteContent.hero.primaryCta}
             </Button>
@@ -146,7 +146,7 @@ export function HeroSection({ featuredProperty }) {
             <Button
               variant="outline"
               size="lg"
-              className="border-white/30 text-white hover:bg-white/10"
+              className="border-white/30 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20"
             >
               {siteContent.hero.secondaryCta}
             </Button>

@@ -104,6 +104,3 @@ export const siteContent = {
   },
 };
 export default siteContent;
-
-
-
