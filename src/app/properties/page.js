@@ -1,9 +1,11 @@
- /**
+  /**
  * G-wealth Republic — Properties Listing Page
  */
 "use client";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Link from "next/link";
+
+export const dynamic = "force-dynamic";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Filter, ChevronDown, ChevronUp } from "lucide-react";
@@ -21,7 +23,7 @@ const ptOptions = Object.entries(PROPERTY_TYPE_LABELS);
 const docOptions = Object.entries(TITLE_DOCUMENTS);
 const availOptions = Object.entries(AVAILABILITY_STATUS);
 
-export default function PropertiesPage() {
+const PropertiesInner = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [properties, setProperties] = useState([]);
@@ -90,70 +92,47 @@ export default function PropertiesPage() {
             <h1 className="font-serif text-3xl md:text-4xl font-bold text-blue mb-2">All Properties</h1>
             <p className="text-slate-600">{total} properties found</p>
           </div>
-          <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <Button variant="outline" size="sm" onClick={() => document.getElementById("filter-drawer").showModal()} className="w-fit md:hidden">
-              <Filter className="h-4 w-4 mr-1" /> Filters ({activeCount})
-            </Button>
-            <div className="flex items-center gap-4 ml-auto">
-              <Select defaultValue="newest" onChange={handleSortChange} className="w-48">
-                <option value="newest">Newest First</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
-                <option value="size">Largest Size</option>
-                <option value="featured">Featured First</option>
-              </Select>
-            </div>
-          </div>
-
-          {/* Mobile Filter Drawer */}
-          <dialog id="filter-drawer" className="fixed inset-0 z-50 bg-black/50 md:hidden">
-            <div className="absolute inset-0 flex items-center justify-center p-4" onClick={(e) => e.stopPropagation()}>
-              <div className="bg-white rounded-xl shadow-xl w-full max-w-sm h-[80vh] flex flex-col">
-                <div className="p-4 border-b flex justify-between items-center">
-                  <h3 className="font-serif text-lg font-semibold">Filters</h3>
-                  <button onClick={() => document.getElementById("filter-drawer").close()} className="p-1">✕</button>
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div className="lg:col-span-1">
+              <div className="sticky top-24 space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-serif text-lg font-bold text-blue">Filters</h3>
+                  {activeCount > 0 && (
+                    <Button variant="ghost" size="sm" onClick={clearAll} className="text-xs">Clear All</Button>
+                  )}
                 </div>
-                <div className="overflow-y-auto p-4 space-y-4">
-                  <FilterSection filters={filters} handleFilterChange={handleFilterChange} />
-                </div>
-                <div className="p-4 border-t flex gap-2">
-                  <Button variant="outline" size="sm" className="flex-1" onClick={() => document.getElementById("filter-drawer").close()}>Apply</Button>
-                  <Button variant="ghost" size="sm" className="flex-1" onClick={clearAll}>Clear All</Button>
-                </div>
-              </div>
-            </div>
-          </dialog>
-
-          <div className="flex gap-8">
-            {/* Desktop Filters */}
-            <aside className="hidden w-64 shrink-0 xl:block">
-              <div className="sticky top-20 space-y-6 rounded-xl bg-white p-6 shadow-sm">
-                <h3 className="font-serif text-lg font-semibold text-navy">Filters</h3>
                 <FilterSection filters={filters} handleFilterChange={handleFilterChange} />
-                <div className="border-t border-border pt-4">
-                  <Button variant="outline" className="w-full" onClick={clearAll}>Clear All Filters</Button>
-                </div>
               </div>
-            </aside>
-
-            {/* Results */}
-            <div className="flex-1">
-              {loading ? (
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                  {[...Array(6)].map((_, i) => <Skeleton key={i} className="h-[400px] w-full" />)}
-                </div>
-              ) : properties.length === 0 ? (
-                <div className="py-16 text-center">
-                  <p className="text-slate-500 mb-4">No properties match your search.</p>
-                  <Button variant="gold" onClick={clearAll}>Clear All Filters</Button>
+            </div>
+            <div className="lg:col-span-3">
+              <div className="flex items-center justify-between mb-4">
+                <p className="text-sm text-slate-600">{properties.length} properties found</p>
+                <Select onValueChange={handleSortChange}>
+                  <option value="createdAt-desc">Newest First</option>
+                  <option value="price-asc">Price: Low to High</option>
+                  <option value="price-desc">Price: High to Low</option>
+                  <option value="size">Largest First</option>
+                  <option value="featured">Featured First</option>
+                </Select>
+              </div>
+              {!loading && properties.length === 0 ? (
+                <div className="text-center py-12">
+                  <p className="text-slate-500 mb-2">No properties found matching your criteria.</p>
+                  <Button onClick={clearAll}>Clear Filters</Button>
                 </div>
               ) : (
-                <motion.div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                  {properties.map((property, i) => (
-                    <motion.div key={property.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: i * 0.05 }}>
-                      <PropertyCard property={property} />
-                    </motion.div>
-                  ))}
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {loading ? (
+                    [...Array(6)].map((_, i) => (
+                      <div key={i} className="animate-pulse rounded-xl bg-slate-200 h-80" />
+                    ))
+                  ) : (
+                    properties.map((property, i) => (
+                      <motion.div key={property.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: i * 0.05 }}>
+                        <PropertyCard property={property} />
+                      </motion.div>
+                    ))
+                  )}
                 </motion.div>
               )}
             </div>
@@ -163,6 +142,15 @@ export default function PropertiesPage() {
       <Footer />
       <WhatsAppButton />
     </>
+  );
+};
+
+export default function PropertiesPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading properties...</div>}>
+      <PropertiesInner />
+    </Suspense>
+
   );
 }
 
@@ -226,3 +214,4 @@ function CollapseSection({ title, open, onToggle, children }) {
     </div>
   );
 }
+

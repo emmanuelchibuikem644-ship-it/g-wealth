@@ -1,0 +1,34 @@
+
+> gwealth@0.1.0 build
+> next build
+
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\user\Desktop\G-wealth\package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * C:\Users\user\Desktop\G-wealth\gwealth\package-lock.json
+
+▲ Next.js 16.1.6 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 37.5s
+  Running TypeScript ...
+  Collecting page data using 3 workers ...
+  Generating static pages using 3 workers (0/13) ...
+  Generating static pages using 3 workers (3/13) 
+  Generating static pages using 3 workers (6/13) 
+⨯ useSearchParams() should be wrapped in a suspense boundary at page "/properties". Read more: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+    at Q (C:\Users\user\Desktop\G-wealth\gwealth\.next\server\chunks\ssr\2369b_b2a8e822._.js:2:2111)
+    at o (C:\Users\user\Desktop\G-wealth\gwealth\.next\server\chunks\ssr\2369b_b2a8e822._.js:4:5280)
+    at z (C:\Users\user\Desktop\G-wealth\gwealth\.next\server\chunks\ssr\gwealth_acbefe3c._.js:1:12419)
+    at an (C:\Users\user\Desktop\G-wealth\gwealth\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.prod.js:2:84360)
+    at ai (C:\Users\user\Desktop\G-wealth\gwealth\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.prod.js:2:86179)
+    at al (C:\Users\user\Desktop\G-wealth\gwealth\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.prod.js:2:107953)
+    at as (C:\Users\user\Desktop\G-wealth\gwealth\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.prod.js:2:105368)
+    at aa (C:\Users\user\Desktop\G-wealth\gwealth\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.prod.js:2:84712)
+    at ai (C:\Users\user\Desktop\G-wealth\gwealth\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.prod.js:2:86228)
+    at ai (C:\Users\user\Desktop\G-wealth\gwealth\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.prod.js:2:104708)
+Error occurred prerendering page "/properties". Read more: https://nextjs.org/docs/messages/prerender-error
+Export encountered an error on /properties/page: /properties, exiting the build.
+⨯ Next.js build worker exited with code: 1 and signal: null
