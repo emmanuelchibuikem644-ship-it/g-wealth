@@ -93,7 +93,17 @@ export const siteContent = {
     { question: "What happens after I submit an appointment request?", answer: "Our team receives a notification and reviews your date/time. We confirm via email and SMS.", category: "Appointments" },
     { question: "Can prices and availability change?", answer: "Prices and availability are subject to change until a formal reservation agreement is signed.", category: "General" },
   ],
+  contactInfo: {
+    email: "info@gwealth.com",
+    phone: "+234-816-XXX-XXXX",
+    address: "123 Victoria Island, Lagos, Nigeria",
+    offices: [
+      { city: "Lagos", address: "123 Victoria Island, Lagos", phone: "+234-816-XXX-XXXX" },
+      { city: "Abuja", address: "456 Central Business District, Abuja", phone: "+234-816-XXX-XXXX" },
+    ],
+  },
 };
-
 export default siteContent;
+
+
 

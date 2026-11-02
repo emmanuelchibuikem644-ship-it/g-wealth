@@ -1,21 +1,7 @@
-import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { ThemeProvider } from "@/components/theme/ThemeContext";
 import { cn } from "@/lib/utils";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-  display: "swap",
-});
 
 export const metadata = {
   title: "G-wealth Republic — Premium Nigerian Real Estate",
@@ -42,8 +28,8 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} scroll-smooth`}>
-      <body className={cn(inter.className, "font-sans bg-white text-slate-900 antialiased")}>
+    <html lang="en" className="font-sans scroll-smooth">
+      <body className={cn("font-sans bg-white text-slate-900 antialiased")}>
         <ThemeProvider>
           <Providers>
             {children}

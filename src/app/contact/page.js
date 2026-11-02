@@ -53,12 +53,12 @@ export default function ContactPage() {
               <div className="space-y-6">
                 <div className="flex gap-4"><Mail className="h-5 w-5 text-gold" /><div><p className="font-medium text-navy">Email</p><p className="text-slate-600">{contactInfo?.email || "info@gwealth.com"}</p></div></div>
                 <div className="flex gap-4"><Phone className="h-5 w-5 text-gold" /><div><p className="font-medium text-navy">Phone</p><p className="text-slate-600">{contactInfo?.phone || "+234-816-XXX-XXXX"}</p></div></div>
-                <div className="flex gap-4"><MapPin className="h-5 w-5 text-gold" /><div><p className="font-medium text-navy">Address</p><p className="text-slate-600">{contactInfo.address}</p></div></div>
+                <div className="flex gap-4"><MapPin className="h-5 w-5 text-gold" /><div><p className="font-medium text-navy">Address</p><p className="text-slate-600">{contactInfo?.address || "123 Victoria Island, Lagos, Nigeria"}</p></div></div>
               </div>
 
               <div className="mt-8 space-y-4">
                 <h3 className="font-serif text-xl font-semibold text-navy">Our Offices</h3>
-                {contactInfo.offices.map((office) => (
+                {contactInfo?.offices?.map((office) => (
                   <div key={office.city} className="rounded-lg border border-border p-4">
                     <h4 className="font-medium text-navy">{office.city}</h4>
                     <p className="text-sm text-slate-600 mt-1">{office.address}</p>
